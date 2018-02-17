@@ -1,3 +1,4 @@
+//https://leetcode.com/problems/trapping-rain-water/description/
 public class TrappingRainWater {
     public int trap(int[] height) {
         if (height == null || height.length < 3) {
