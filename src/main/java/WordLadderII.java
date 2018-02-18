@@ -11,14 +11,20 @@ public class WordLadderII {
             this.words = words;
             graph = new BitSet(words.size() * words.size());
             for (int i = 0; i < words.size(); i++) {
-                for (int j = 0; j < words.size(); j++) {
+                for (int j = i + 1; j < words.size(); j++) {
                     int diffCharCount = 0;
                     for (int k = 0; k < words.get(i).length(); k++) {
                         if (words.get(i).charAt(k) != words.get(j).charAt(k)) {
                             diffCharCount++;
                         }
+                        if(diffCharCount > 1) {
+                            break;
+                        }
+                        if(k == words.get(i).length() - 1) {
+                            graph.set(i * words.size() + j, diffCharCount == 1);
+                            graph.set(j * words.size() + i, diffCharCount == 1);
+                        }
                     }
-                    graph.set(i * words.size() + j, diffCharCount == 1);
                 }
             }
         }
@@ -107,7 +113,9 @@ public class WordLadderII {
             if (netLevel.containsWord(end)) {
                 break;
             }
+            int size = lastWords.size();
             lastWords.addAll(netLevel.listAllLevelWords());
+            isLastWordsChanged = lastWords.size() > size;
         }
         return net;
     }
