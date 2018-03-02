@@ -12,5 +12,6 @@ public class WildcardMatchingTest {
         Assert.assertTrue(matching.isMatch("aa", "a*"));
         Assert.assertTrue(matching.isMatch("ab", "?*"));
         Assert.assertFalse(matching.isMatch("aab", "c*a*b"));
+        Assert.assertTrue(matching.isMatch("aa", "*a"));
     }
 }

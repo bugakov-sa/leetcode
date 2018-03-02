@@ -9,7 +9,7 @@ public class WildcardMatching {
         if (p.startsWith("*")) {
             for (String s1 : cache.keySet()) {
                 if (s1.endsWith(s)) {
-                    if(cache.get(s1).containsKey(p)) {
+                    if (cache.get(s1).containsKey(p)) {
                         return cache.get(s1).get(p);
                     }
                 }
@@ -39,7 +39,14 @@ public class WildcardMatching {
                 if (p.length() == 1) {
                     return true;
                 }
-                for (int i = 0; i < s.length(); i++) {
+                int starCount = 0;
+                for (int i = 0; i < p.length(); i++) {
+                    if (p.charAt(i) == '*') {
+                        starCount++;
+                    }
+                }
+                int minLength = p.length() - starCount;
+                for (int i = 0; i <= s.length() - minLength; i++) {
                     if (cachingIsMatch(s.substring(i), p.substring(1))) {
                         return true;
                     }
